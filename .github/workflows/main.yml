@@ -1,0 +1,37 @@
+name: Github Pages
+on:
+  push:
+    branches:
+      - master
+jobs:
+  Deploy-Pages:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+
+      - name: Install Deps
+        run: yarn install
+
+      - name: Build App
+        run: yarn build
+
+      - name: Push
+        run: |
+          # config user
+          git config --global user.email "saber2pr@gmail.com" && git config --global user.name "saber2pr"
+
+          # mv config
+          file=$(ls ./public | grep "config-")
+          if [[ "$file" = "" ]]; then
+            echo no effect
+          else
+            rm ./public/config
+            ls ./public | grep "config-" | xargs -I {} mv ./public/{} ./public/config
+          fi
+
+          # deploy
+          cp ./build/index.html ./index.html
+          git add .
+          git commit . -m "chore: update" --allow-empty
+          git push
