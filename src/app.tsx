@@ -1,7 +1,6 @@
 import 'normalize.css'
 
 import { Button, Divider, Empty, Input, message, Modal, Spin } from 'antd'
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 
@@ -12,7 +11,6 @@ import { Container } from './app.style'
 import { CalcForm } from './components/calc-form'
 import { useAsync } from './hooks'
 import { usePromptModal } from './components/prompt-modal'
-
 
 export const App = () => {
   const [AppConfig, setConfig] = useState<AppConfig>()
