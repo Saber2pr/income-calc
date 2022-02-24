@@ -7,11 +7,12 @@ import ReactDOM from 'react-dom'
 
 import Ptbk from '@saber2pr/ptbk'
 
-import { saveConfig } from './api'
+import { getConfig, saveConfig } from './api'
 import { Container } from './app.style'
 import { CalcForm } from './components/calc-form'
 import { useAsync } from './hooks'
 import { usePromptModal } from './components/prompt-modal'
+
 
 export const App = () => {
   const [AppConfig, setConfig] = useState<AppConfig>()
@@ -34,8 +35,8 @@ export const App = () => {
     async () => {
       if (pwd) {
         try {
-          const res = await axios.get<AppConfig>('./public/config')
-          const appConfig = Ptbk.decode(res.data, pwd)
+          const res = await getConfig()
+          const appConfig = Ptbk.decode(res, pwd)
           setConfig(appConfig)
           setIsPass(true)
         } catch (error) {
