@@ -1,4 +1,7 @@
-type ConsumeData = Record<string, Array<{ name: string; value: number }>>
+type ConsumeData = Record<
+  string,
+  Array<{ name: string; value: number; disabled: boolean }>
+>
 type CalcConfig = Record<string, { count: number; data: ConsumeData[''] }>
 type AppConfig = {
   pwd: string

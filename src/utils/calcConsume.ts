@@ -8,6 +8,7 @@ export const calcConsumeStr = (item: CalcConfig['']) => {
       dataStr = `${item.data[0].value}`
     } else {
       dataStr = `(${getArray(item.data)
+        .filter((item) => !item.disabled)
         .map((item) => Number(item.value))
         .join(' + ')})`
     }
