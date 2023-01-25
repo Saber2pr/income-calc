@@ -16,6 +16,9 @@ export interface ConsumeProps {
 export const Consume: React.FC<ConsumeProps> = ({ data, onChange }) => {
   const [form] = Form.useForm()
 
+  const mainName = getKeys(data)[0]
+  const mainNameName = data[mainName]?.[0]?.name
+
   const updateCheck = (lineName, name, checked: boolean) => {
     const target = data[lineName]
     target[name].disabled = !checked
@@ -38,7 +41,15 @@ export const Consume: React.FC<ConsumeProps> = ({ data, onChange }) => {
               {(fields, { add, remove }) => (
                 <>
                   {fields.map(({ key, name, ...restField }) => {
-                    const item = form.getFieldValue([lineName, name])
+                    const item = form.getFieldValue([
+                      lineName,
+                      name,
+                    ]) as ConsumeProps['data'][0][0]
+                    console.log(
+                      '🚀 ~ file: index.tsx:47 ~ {fields.map ~ item',
+                      item,
+                      mainName,
+                    )
                     return (
                       <Space
                         key={key}
@@ -67,13 +78,15 @@ export const Consume: React.FC<ConsumeProps> = ({ data, onChange }) => {
                             type="number"
                           />
                         </Form.Item>
-                        <Checkbox
-                          checked={!item.disabled}
-                          style={{ marginRight: 24 }}
-                          onChange={(event) =>
-                            updateCheck(lineName, name, event.target.checked)
-                          }
-                        />
+                        {item.name !== mainNameName && (
+                          <Checkbox
+                            checked={!item.disabled}
+                            style={{ marginRight: 24 }}
+                            onChange={(event) =>
+                              updateCheck(lineName, name, event.target.checked)
+                            }
+                          />
+                        )}
                         <MinusCircleOutlined onClick={() => remove(name)} />
                       </Space>
                     )
