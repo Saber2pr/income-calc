@@ -53,7 +53,7 @@ export const IncYearChart: React.FC<IncYearChartProps> = ({
       }
       chart.setOption(option)
     },
-    [monthInc, curVal],
+    [monthInc, curVal, yearInSum],
   )
 
   return (

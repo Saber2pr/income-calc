@@ -3,33 +3,24 @@ import { Spin } from 'antd'
 import React from 'react'
 import { Chart, Contain } from './index.style'
 import * as number from '@saber2pr/utils/lib/number'
-import { getKeys } from '@/utils'
 
-export interface ConsMonthChartProps {
-  data: CalcConfig
-  monthOutSumCal: number
+export interface IncAgeChartProps {
+  yearInSum: number
+  config: AppConfig
 }
 
-export const ConsMonthChart: React.FC<ConsMonthChartProps> = ({
-  data,
-  monthOutSumCal,
+export const IncAgeChart: React.FC<IncAgeChartProps> = ({
+  yearInSum,
+  config,
 }) => {
   const [ref, loading] = useEcharts(
     (chart) => {
-      const curMonth = new Date().getMonth()
-      const xAxis = []
+      const curYear = new Date().getFullYear()
+      const years = []
       const values = []
-      const keys = getKeys(data)
-      const incKey = keys[0]
-      for (const name in data) {
-        if (name === incKey) continue
-        const item = data[name]
-        const count = item.count
-        item.data.forEach((sitem) => {
-          if (sitem.disabled) return
-          xAxis.push(sitem.name)
-          values.push(+sitem.value * count)
-        })
+      for (let i = 0; i < 10; i++) {
+        years.push(`${curYear - config.birthYear + i}岁`)
+        values.push(`${config.deposit + yearInSum * i}`)
       }
 
       const option = {
@@ -38,14 +29,14 @@ export const ConsMonthChart: React.FC<ConsMonthChartProps> = ({
         },
         xAxis: {
           type: 'category',
-          data: xAxis,
+          data: years,
         },
         yAxis: {
-          name: `${curMonth + 1}月支出（合计：${monthOutSumCal}）`,
-          type: 'value',
+          name: `存款`,
           nameTextStyle: {
-            padding: [0, -50, 0, 0],
+            padding: [0, 40, 0, 0],
           },
+          type: 'value',
           axisLabel: {
             formatter: (value) => number.parseUnit(value),
           },
@@ -59,7 +50,7 @@ export const ConsMonthChart: React.FC<ConsMonthChartProps> = ({
       }
       chart.setOption(option)
     },
-    [data, monthOutSumCal],
+    [yearInSum],
   )
 
   return (

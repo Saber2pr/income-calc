@@ -24,3 +24,8 @@ export const Background = styled.div`
   background-color: #fff;
   padding-top: 8px;
 `
+
+export const Charts = styled.div`
+  height: 100vh;
+  overflow-y: auto;
+`

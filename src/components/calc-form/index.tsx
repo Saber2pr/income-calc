@@ -12,8 +12,9 @@ import { number } from '@saber2pr/utils'
 import { Consume } from '../consume'
 import { Line, LineContent, LineLabel } from '../consume/index.style'
 import { IncYearChart } from '../inc-year-chart'
-import { Aside, Background, Contain, Content } from './index.style'
+import { Aside, Background, Charts, Contain, Content } from './index.style'
 import { ConsMonthChart } from '../cons-month-chart'
+import { IncAgeChart } from '../inc-age-chart'
 
 const { Paragraph, Text } = Typography
 
@@ -143,11 +144,12 @@ export const CalcForm: React.FC<CalcFormProps> = ({
             data={AppConfig.data}
             monthOutSumCal={monthOutSumCal}
           />
+          <IncAgeChart yearInSum={calcValue * 12} config={AppConfig} />
         </>
       ) : (
         <Aside>
           <Affix offsetTop={0}>
-            <div>
+            <Charts>
               <IncYearChart
                 curVal={AppConfig.deposit}
                 monthInc={calcValue}
@@ -157,7 +159,8 @@ export const CalcForm: React.FC<CalcFormProps> = ({
                 data={AppConfig.data}
                 monthOutSumCal={monthOutSumCal}
               />
-            </div>
+              <IncAgeChart yearInSum={calcValue * 12} config={AppConfig} />
+            </Charts>
           </Affix>
         </Aside>
       )}
