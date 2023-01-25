@@ -45,11 +45,6 @@ export const Consume: React.FC<ConsumeProps> = ({ data, onChange }) => {
                       lineName,
                       name,
                     ]) as ConsumeProps['data'][0][0]
-                    console.log(
-                      '🚀 ~ file: index.tsx:47 ~ {fields.map ~ item',
-                      item,
-                      mainName,
-                    )
                     return (
                       <Space
                         key={key}
