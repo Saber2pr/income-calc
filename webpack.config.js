@@ -8,7 +8,7 @@ const webpackDevServer = require('webpack-dev-server')
 const publicPath = (resourcePath, context) =>
   path.relative(path.dirname(resourcePath), context) + '/'
 
-const cdn = '//cdn.jsdelivr.net/gh'
+const cdn = '//fastly.jsdelivr.net/gh'
 const username = 'saber2pr'
 const pages_branch = 'master'
 const repo = 'income-calc' // github 仓库
